@@ -13,7 +13,8 @@ class BMICalculator {
         this.downloadBtn = document.getElementById('download-btn');
         this.bmiValue = document.getElementById('bmi-value');
         this.bmiCategory = document.getElementById('bmi-category');
-        this.bmiArrow = document.getElementById('bmi-arrow');
+        this.bmiIndicator = document.getElementById('bmi-indicator');
+        this.thermometerFill = document.getElementById('thermometer-fill');
         this.weightConversion = document.getElementById('weight-conversion');
         this.heightConversion = document.getElementById('height-conversion');
         
@@ -235,7 +236,7 @@ class BMICalculator {
 
         // Display results
         this.displayBMI(bmi);
-        this.updateArrowPosition(bmi);
+        this.updateThermometer(bmi);
         this.animateResults();
         
         // Show download button
@@ -264,24 +265,42 @@ class BMICalculator {
         }
     }
 
-    updateArrowPosition(bmi) {
-        // Calculate angle based on BMI scale (speedometer style)
-        // BMI ranges: 15 (left) to 40 (right) mapped to -90° to 90° (180° total)
+    updateThermometer(bmi) {
+        // Calculate fill percentage based on BMI scale
+        // BMI ranges: 15 (bottom) to 40 (top) mapped to 0% to 100% fill
         const minBMI = 15;
         const maxBMI = 40;
         const clampedBMI = Math.max(minBMI, Math.min(maxBMI, bmi));
         
-        // Map BMI to angle: -90° (left) to +90° (right)
-        const angle = -90 + ((clampedBMI - minBMI) / (maxBMI - minBMI)) * 180;
-
-        // Update arrow rotation
-        this.bmiArrow.style.transform = `rotate(${angle}deg)`;
-        this.bmiArrow.classList.add('active', 'animated');
-
-        // Remove animation class after animation completes
-        setTimeout(() => {
-            this.bmiArrow.classList.remove('animated');
-        }, 800);
+        // Calculate fill percentage (inverted because thermometer fills from bottom)
+        const fillPercentage = ((clampedBMI - minBMI) / (maxBMI - minBMI)) * 100;
+        
+        // Update thermometer fill
+        this.thermometerFill.style.height = `${fillPercentage}%`;
+        
+        // Calculate indicator position (from top, so we need to invert)
+        const indicatorPosition = 100 - fillPercentage;
+        this.bmiIndicator.style.top = `${indicatorPosition}%`;
+        this.bmiIndicator.classList.add('active');
+        
+        // Update bulb color based on BMI category
+        const bulb = document.querySelector('.thermometer-bulb');
+        const category = this.getBMICategory(bmi);
+        
+        switch(category.class) {
+            case 'underweight':
+                bulb.style.background = '#3182ce';
+                break;
+            case 'normal':
+                bulb.style.background = '#38a169';
+                break;
+            case 'overweight':
+                bulb.style.background = '#d69e2e';
+                break;
+            case 'obese':
+                bulb.style.background = '#e53e3e';
+                break;
+        }
     }
 
     animateResults() {
@@ -457,7 +476,9 @@ document.addEventListener('keydown', (e) => {
         document.getElementById('bmi-value').textContent = '--';
         document.getElementById('bmi-category').textContent = 'Enter your details to calculate';
         document.getElementById('bmi-category').className = 'bmi-category';
-        document.getElementById('bmi-arrow').classList.remove('active');
+        document.getElementById('bmi-indicator').classList.remove('active');
+        document.getElementById('thermometer-fill').style.height = '0%';
+        document.querySelector('.thermometer-bulb').style.background = '#e53e3e';
     }
 });
 

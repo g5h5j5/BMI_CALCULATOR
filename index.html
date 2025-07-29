@@ -71,37 +71,34 @@
                         <div class="bmi-category" id="bmi-category">Enter your details to calculate</div>
                     </div>
 
-                    <!-- Visual Meter -->
+                    <!-- Visual Thermometer -->
                     <div class="meter-container">
                         <div class="meter">
-                            <div class="meter-background">
-                                <!-- Color zones -->
-                                <div class="zone underweight" data-range="0-18.5">
-                                    <span class="zone-label">Underweight</span>
-                                </div>
-                                <div class="zone normal" data-range="18.5-25">
-                                    <span class="zone-label">Normal</span>
-                                </div>
-                                <div class="zone overweight" data-range="25-30">
-                                    <span class="zone-label">Overweight</span>
-                                </div>
-                                <div class="zone obese" data-range="30+">
-                                    <span class="zone-label">Obese</span>
-                                </div>
-                            </div>
+                            <div class="thermometer-fill" id="thermometer-fill"></div>
+                            <div class="thermometer-bulb"></div>
+                            
                             <!-- BMI Scale -->
-                            <div class="scale">
-                                <span class="scale-mark" data-value="15">15</span>
-                                <span class="scale-mark" data-value="18.5">18.5</span>
-                                <span class="scale-mark" data-value="25">25</span>
-                                <span class="scale-mark" data-value="30">30</span>
-                                <span class="scale-mark" data-value="35">35</span>
+                            <div class="thermometer-scale">
                                 <span class="scale-mark" data-value="40">40</span>
+                                <span class="scale-mark" data-value="35">35</span>
+                                <span class="scale-mark" data-value="30">30</span>
+                                <span class="scale-mark" data-value="25">25</span>
+                                <span class="scale-mark" data-value="18.5">18.5</span>
+                                <span class="scale-mark" data-value="15">15</span>
                             </div>
-                            <!-- Arrow Indicator -->
-                            <div class="arrow-container">
-                                <div class="arrow" id="bmi-arrow"></div>
+                            
+                            <!-- Category Labels -->
+                            <div class="thermometer-labels">
+                                <span class="thermometer-label">Obese</span>
+                                <span class="thermometer-label">Severely Obese</span>
+                                <span class="thermometer-label">Obese</span>
+                                <span class="thermometer-label">Overweight</span>
+                                <span class="thermometer-label">Normal</span>
+                                <span class="thermometer-label">Underweight</span>
                             </div>
+                            
+                            <!-- BMI Indicator -->
+                            <div class="bmi-indicator" id="bmi-indicator"></div>
                         </div>
                     </div>
 
