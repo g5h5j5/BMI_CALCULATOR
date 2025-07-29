@@ -277,30 +277,17 @@ class BMICalculator {
         
         // Update thermometer fill
         this.thermometerFill.style.height = `${fillPercentage}%`;
+        this.thermometerFill.classList.add('active');
         
         // Calculate indicator position (from top, so we need to invert)
         const indicatorPosition = 100 - fillPercentage;
         this.bmiIndicator.style.top = `${indicatorPosition}%`;
         this.bmiIndicator.classList.add('active');
         
-        // Update bulb color based on BMI category
+        // Update bulb intensity based on BMI level (keep color constant)
         const bulb = document.querySelector('.thermometer-bulb');
-        const category = this.getBMICategory(bmi);
-        
-        switch(category.class) {
-            case 'underweight':
-                bulb.style.background = '#3182ce';
-                break;
-            case 'normal':
-                bulb.style.background = '#38a169';
-                break;
-            case 'overweight':
-                bulb.style.background = '#d69e2e';
-                break;
-            case 'obese':
-                bulb.style.background = '#e53e3e';
-                break;
-        }
+        const intensity = Math.min(1, fillPercentage / 100);
+        bulb.style.opacity = 0.7 + (intensity * 0.3); // Opacity varies from 0.7 to 1.0
     }
 
     animateResults() {
@@ -478,7 +465,8 @@ document.addEventListener('keydown', (e) => {
         document.getElementById('bmi-category').className = 'bmi-category';
         document.getElementById('bmi-indicator').classList.remove('active');
         document.getElementById('thermometer-fill').style.height = '0%';
-        document.querySelector('.thermometer-bulb').style.background = '#e53e3e';
+        document.getElementById('thermometer-fill').classList.remove('active');
+        document.querySelector('.thermometer-bulb').style.opacity = '0.7';
     }
 });
 

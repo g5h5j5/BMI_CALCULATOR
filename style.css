@@ -240,10 +240,12 @@ input[type="number"]:focus {
     right: 0;
     height: 0%;
     background: linear-gradient(to top,
-        #e53e3e 0%,
-        #d69e2e 33%,
-        #38a169 66%,
-        #3182ce 100%);
+        rgba(229, 62, 62, 1) 0%,
+        rgba(229, 62, 62, 0.9) 20%,
+        rgba(229, 62, 62, 0.7) 40%,
+        rgba(229, 62, 62, 0.5) 60%,
+        rgba(229, 62, 62, 0.3) 80%,
+        rgba(229, 62, 62, 0.1) 100%);
     border-radius: 0 0 37px 37px;
     transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -259,6 +261,37 @@ input[type="number"]:focus {
     border-radius: 50%;
     border: 3px solid #e2e8f0;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    transition: opacity 0.3s ease;
+}
+
+/* Add intensity effect with pulsing animation */
+.thermometer-fill.active {
+    animation: thermometerPulse 2s ease-in-out infinite;
+}
+
+@keyframes thermometerPulse {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(229, 62, 62, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(229, 62, 62, 0.6);
+    }
+}
+
+/* Add inner glow effect */
+.thermometer-fill::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to top,
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        transparent 100%);
+    border-radius: 0 0 18px 18px;
 }
 
 .meter-background {
