@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator - Interactive Health Tool</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>BMI Calculator</h1>
+            <p>Calculate your Body Mass Index with visual feedback</p>
+        </header>
+
+        <main>
+            <div class="calculator-wrapper">
+                <!-- Input Form Section -->
+                <div class="input-section">
+                    <h2>Enter Your Information</h2>
+                    
+                    <!-- Weight Input -->
+                    <div class="input-group">
+                        <label for="weight">Weight</label>
+                        <div class="input-with-units">
+                            <input type="number" id="weight" placeholder="Enter weight" step="0.1" min="1">
+                            <div class="unit-selector">
+                                <input type="radio" id="weight-kg" name="weight-unit" value="kg" checked>
+                                <label for="weight-kg">kg</label>
+                                <input type="radio" id="weight-lb" name="weight-unit" value="lb">
+                                <label for="weight-lb">lb</label>
+                            </div>
+                        </div>
+                        <div class="conversion-display" id="weight-conversion"></div>
+                    </div>
+
+                    <!-- Height Input -->
+                    <div class="input-group">
+                        <label for="height">Height</label>
+                        <div class="input-with-units">
+                            <div class="height-inputs">
+                                <input type="number" id="height-cm" placeholder="Enter height" step="0.1" min="1" class="height-input active">
+                                <div class="feet-inches-inputs" style="display: none;">
+                                    <input type="number" id="height-ft" placeholder="Feet" step="1" min="0">
+                                    <span>ft</span>
+                                    <input type="number" id="height-in" placeholder="Inches" step="0.1" min="0" max="11.9">
+                                    <span>in</span>
+                                </div>
+                            </div>
+                            <div class="unit-selector">
+                                <input type="radio" id="height-cm-radio" name="height-unit" value="cm" checked>
+                                <label for="height-cm-radio">cm</label>
+                                <input type="radio" id="height-ft-radio" name="height-unit" value="ft">
+                                <label for="height-ft-radio">ft/in</label>
+                            </div>
+                        </div>
+                        <div class="conversion-display" id="height-conversion"></div>
+                    </div>
+
+                    <button type="button" id="calculate-btn">Calculate BMI</button>
+                </div>
+
+                <!-- Results Section -->
+                <div class="results-section">
+                    <h2>Your BMI Result</h2>
+                    
+                    <!-- BMI Display -->
+                    <div class="bmi-display">
+                        <div class="bmi-value" id="bmi-value">--</div>
+                        <div class="bmi-category" id="bmi-category">Enter your details to calculate</div>
+                    </div>
+
+                    <!-- Visual Meter -->
+                    <div class="meter-container">
+                        <div class="meter">
+                            <div class="meter-background">
+                                <!-- Color zones -->
+                                <div class="zone underweight" data-range="0-18.5">
+                                    <span class="zone-label">Underweight</span>
+                                </div>
+                                <div class="zone normal" data-range="18.5-25">
+                                    <span class="zone-label">Normal</span>
+                                </div>
+                                <div class="zone overweight" data-range="25-30">
+                                    <span class="zone-label">Overweight</span>
+                                </div>
+                                <div class="zone obese" data-range="30+">
+                                    <span class="zone-label">Obese</span>
+                                </div>
+                            </div>
+                            <!-- BMI Scale -->
+                            <div class="scale">
+                                <span class="scale-mark" data-value="15">15</span>
+                                <span class="scale-mark" data-value="18.5">18.5</span>
+                                <span class="scale-mark" data-value="25">25</span>
+                                <span class="scale-mark" data-value="30">30</span>
+                                <span class="scale-mark" data-value="35">35</span>
+                                <span class="scale-mark" data-value="40">40</span>
+                            </div>
+                            <!-- Arrow Indicator -->
+                            <div class="arrow-container">
+                                <div class="arrow" id="bmi-arrow"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BMI Information -->
+                    <div class="bmi-info" id="bmi-info">
+                        <h3>BMI Categories:</h3>
+                        <ul>
+                            <li><span class="info-color underweight-color"></span>Underweight: Less than 18.5</li>
+                            <li><span class="info-color normal-color"></span>Normal weight: 18.5 - 24.9</li>
+                            <li><span class="info-color overweight-color"></span>Overweight: 25 - 29.9</li>
+                            <li><span class="info-color obese-color"></span>Obese: 30 or greater</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p><small>BMI is a screening tool and not a diagnostic tool. Consult with a healthcare professional for health advice.</small></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
