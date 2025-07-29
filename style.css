@@ -220,16 +220,21 @@ input[type="number"]:focus {
 
 .meter {
     position: relative;
-    height: 120px;
-    margin: 2rem 0;
+    width: 250px;
+    height: 150px;
+    margin: 2rem auto;
+    background: linear-gradient(180deg, 
+        #3182ce 0%, #3182ce 25%,
+        #38a169 25%, #38a169 50%,
+        #d69e2e 50%, #d69e2e 75%,
+        #e53e3e 75%, #e53e3e 100%);
+    border-radius: 125px 125px 0 0;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.2);
+    overflow: hidden;
 }
 
 .meter-background {
-    display: flex;
-    height: 60px;
-    border-radius: 30px;
-    overflow: hidden;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+    display: none; /* Hide old meter background */
 }
 
 .zone {
@@ -261,52 +266,103 @@ input[type="number"]:focus {
 }
 
 .scale {
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    right: 0;
+    height: 20px;
     display: flex;
     justify-content: space-between;
-    padding: 0.5rem 0;
-    margin-top: 0.5rem;
+    align-items: center;
+    padding: 0 15px;
 }
 
 .scale-mark {
-    font-size: 0.8rem;
-    color: #718096;
-    font-weight: 500;
+    font-size: 0.75rem;
+    color: #4a5568;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+}
+
+.scale-mark::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 10px;
+    background: #4a5568;
+}
+
+/* Add meter inner circle */
+.meter::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 50%;
+    border: 4px solid #4a5568;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 .arrow-container {
     position: absolute;
-    top: 45px;
-    left: 0;
-    right: 0;
-    height: 30px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 100px;
+    transform-origin: bottom center;
     pointer-events: none;
 }
 
 .arrow {
     position: absolute;
-    width: 0;
-    height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 20px solid #2d3748;
-    transform: translateX(-50%);
-    transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    left: 50%;
+    bottom: 0;
+    left: 0;
+    width: 6px;
+    height: 90px;
+    background: linear-gradient(to top, #2d3748 0%, #4a5568 100%);
+    border-radius: 3px 3px 0 0;
+    transform-origin: bottom center;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: rotate(-90deg);
     opacity: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
 .arrow.active {
     opacity: 1;
 }
 
+.arrow::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -4px;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 12px solid #2d3748;
+}
+
 .arrow::after {
     content: '';
     position: absolute;
-    top: 20px;
+    bottom: -8px;
     left: -2px;
-    width: 4px;
+    width: 10px;
     height: 10px;
     background: #2d3748;
+    border-radius: 50%;
+    border: 2px solid white;
 }
 
 /* BMI Information */
@@ -396,11 +452,16 @@ footer {
     }
     
     .meter {
-        height: 100px;
+        width: 200px;
+        height: 120px;
     }
     
-    .meter-background {
-        height: 50px;
+    .arrow {
+        height: 70px;
+    }
+    
+    .arrow-container {
+        height: 80px;
     }
 }
 
@@ -437,6 +498,30 @@ input:valid {
     opacity: 0.6;
     cursor: not-allowed;
     transform: none;
+}
+
+/* Download Button */
+#download-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+#download-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(56, 161, 105, 0.3);
+}
+
+#download-btn:active {
+    transform: translateY(0);
 }
 
 /* Error states */
